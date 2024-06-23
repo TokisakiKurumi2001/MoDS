@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     device = torch.device('cuda:0')
     rank_model = rank_model.to(device)
-    logger.succcess(f'Successfully loaded {reward_name} model')
+    logger.success(f'Successfully loaded {reward_name} model')
 
     # testing
     question, answer = "Explain nuclear fusion like I am five", "Nuclear fusion is the process by which two or more protons and neutrons combine to form a single nucleus. It is a very important process in the universe, as it is the source of energy for stars and galaxies. Nuclear fusion is also a key process in the production of energy for nuclear power plants."
