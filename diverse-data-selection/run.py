@@ -24,7 +24,10 @@ def bert_embedding(texts,batch=100):
         with torch.no_grad():
             last_hids = model(**inputs).last_hidden_state
         cls_hids = last_hids[:, 0, :].squeeze()
-        cls_hid_li.append(cls_hids)
+        cls_hid_li.append(cls_hids.clone().cpu())
+        del cls_hid
+        del last_hids
+        del inputs
         i += batch
     
     cls_hids_tensor = torch.concat(cls_hid_li, dim=0)
