@@ -25,7 +25,7 @@ def bert_embedding(texts,batch=100):
             last_hids = model(**inputs).last_hidden_state
         cls_hids = last_hids[:, 0, :].squeeze()
         cls_hid_li.append(cls_hids.clone().cpu())
-        del cls_hid
+        del cls_hids
         del last_hids
         del inputs
         i += batch
