@@ -8,6 +8,7 @@ if __name__ == "__main__":
     parser.add_argument('--input_file', type=str)
     parser.add_argument('--output_file', type=str)
     parser.add_argument('--threshold', type=float)
+    args = parser.parse_args()
 
     quality_evaluation_list = []
     with open(args.input_file) as fin:
