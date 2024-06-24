@@ -8,9 +8,8 @@ from tqdm import tqdm
 import argparse
 from loguru import logger
 
-MAX_PROMPT_LENGTH=860
+MAX_PROMPT_LENGTH=512
 
-@torch.no_grad()
 def bert_embedding(texts,batch=100):
     tokenizer = AutoTokenizer.from_pretrained('../model_ckpt/bert-base-uncased')
     model = AutoModel.from_pretrained('../model_ckpt/bert-base-uncased')
@@ -21,7 +20,8 @@ def bert_embedding(texts,batch=100):
         batch_sample = texts[i:i+batch]
         inputs = tokenizer(batch_sample, return_tensors='pt', truncation=True, padding=True, max_length=MAX_PROMPT_LENGTH)
         inputs = {k: v.to(device) for k, v in inputs.items()}
-        last_hids = model(**inputs).last_hidden_state
+        with torch.no_grad():
+            last_hids = model(**inputs).last_hidden_state
         cls_hids = last_hids[:, 0, :].squeeze()
         cls_hid_li.append(cls_hids)
         i += batch
