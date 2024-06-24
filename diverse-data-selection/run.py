@@ -15,6 +15,7 @@ def bert_embedding(texts,batch=100):
     model = AutoModel.from_pretrained('../model_ckpt/bert-base-uncased')
     device = torch.device('cuda:0')
     model = model.to(device)
+    model.eval()
     cls_hid_li = []
     for i in tqdm(range(0, len(texts), batch), desc="Encoding", unit='batch'):
         batch_sample = texts[i:i+batch]
